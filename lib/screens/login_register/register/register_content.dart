@@ -69,7 +69,7 @@ class _RegisterContentState extends State<RegisterContent> {
             key: _passwordFormKey,
             child: TextFormField(
               controller: _passwordController,
-              validator: (text) {if(text.length<8) {return "Za krótkie hasło. Minimum 8 znaków";} return null;},
+              validator: (text) {if(text.length<8) {return "Za krótkie hasło. Minimum 6 znaków";} return null;},
               onChanged: (text)  {
                 _passwordFormKey.currentState.validate();
                 password = text;
@@ -117,12 +117,10 @@ class _RegisterContentState extends State<RegisterContent> {
   }
 
   void registerAction(){
-    if(!emailValidator(email) && password.length>7 && password == confirmPassword){
-      print("test");
+    if(!emailValidator(email) && password.length>5 && password == confirmPassword){
       _accountBloc.registerUser(email.trim(), password.trim());
     }
     else{
-      print("test failed");
       _confirmPasswordFormKey.currentState.validate();
       _emailFormKey.currentState.validate();
       _passwordFormKey.currentState.validate();
