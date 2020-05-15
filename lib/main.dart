@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       blocs: _blocs,
       dependencies: _dependencies,
       child: MaterialApp(
-          title: 'F',
+          title: 'GBM',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
               primaryColor: Colors.pink[900],

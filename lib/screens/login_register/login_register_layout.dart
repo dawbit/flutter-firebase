@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutterfirebase/blocs/account_bloc.dart';
 import 'package:flutterfirebase/screens/login_register/login/login_content.dart';
 import 'package:flutterfirebase/screens/login_register/register/register_content.dart';
-//import 'package:flutterfirebase/screens/main/main_screen.dart';
+import 'package:flutterfirebase/screens/main/main_content.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 
@@ -34,7 +34,7 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> with SingleTic
     _accountBloc= BlocProvider.getBloc();
     _registerSubscription = _accountBloc.loadingLoginRegister.listen(loadingScreen);
     _toastMessage = _accountBloc.messageObservable.listen(showtoast);
-    //_currentUser = _accountBloc.currentUser.listen(changeViewIfLoggedIn);
+    _currentUser = _accountBloc.currentUser.listen(changeViewIfLoggedIn);
   }
 
   @override
@@ -133,13 +133,13 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> with SingleTic
     );
   }
 
-//  void changeViewIfLoggedIn(FirebaseUser user){
-//    if (user.uid!=null){
-//      Navigator.of(context).pushReplacement(MaterialPageRoute(
-//          builder: (context) => MainScreen(),
-//      ));
-//    }
-//  }
+  void changeViewIfLoggedIn(FirebaseUser user){
+    if (user.uid!=null){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => MainScreen(),
+      ));
+    }
+  }
 
   void loadingScreen(bool b){
     if(b) progressDialog.show();
