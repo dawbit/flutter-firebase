@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfirebase/blocs/account_bloc.dart';
-//import 'package:flutterfirebase/screens/api_search/api_search.dart';
+import 'package:flutterfirebase/screens/api_search/api_search.dart';
 import 'package:flutterfirebase/screens/login_register/login_register_layout.dart';
-//import 'package:flutterfirebase/screens/main/main_screen.dart';
+import 'package:flutterfirebase/screens/main/main_content.dart';
+import 'package:flutterfirebase/screens/test.dart';
+import 'package:flutterfirebase/blocs/db_bloc.dart';
 import 'firebase/FirebaseAuthManager.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 
@@ -22,13 +24,14 @@ class MyApp extends StatelessWidget {
               accentColor: Colors.pink[500],
               brightness: Brightness.dark
           ),
-          home: LoginRegisterScreen()
+          home: TestScr()
       ),
     );
   }
 
   List<Bloc> get _blocs => [
     Bloc((_) => AccountBloc()),
+    Bloc((_) => DbBloc())
   ];
 
   List<Dependency> get _dependencies =>[

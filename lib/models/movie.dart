@@ -12,7 +12,7 @@ class Movie{
   bool read;
   String id;
 
-  Movie({this.title, this.year, this.genre, this.author, this.read});
+  Movie({this.title, this.year, this.genre, this.author, this.read,  this.id});
 
   void setUuid(String uuid){
     this.id = uuid;

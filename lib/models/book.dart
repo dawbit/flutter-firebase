@@ -12,7 +12,7 @@ class Book{
   bool read;
   String id;
 
-  Book({this.title, this.year, this.genre, this.author, this.read});
+  Book({this.title, this.year, this.genre, this.author, this.read,  this.id});
 
   void setUuid(String uuid){
     this.id = uuid;

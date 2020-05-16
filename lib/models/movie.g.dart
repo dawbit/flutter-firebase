@@ -13,7 +13,8 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
     genre: json['genre'] as String,
     author: json['author'] as String,
     read: json['read'] as bool,
-  )..id = json['id'] as String;
+    id: json['id'] as String,
+  );
 }
 
 Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{

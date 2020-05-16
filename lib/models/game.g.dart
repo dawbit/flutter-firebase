@@ -13,7 +13,8 @@ Game _$GameFromJson(Map<String, dynamic> json) {
     genre: json['genre'] as String,
     studio: json['studio'] as String,
     played: json['played'] as bool,
-  )..id = json['id'] as String;
+    id: json['id'] as String,
+  );
 }
 
 Map<String, dynamic> _$GameToJson(Game instance) => <String, dynamic>{

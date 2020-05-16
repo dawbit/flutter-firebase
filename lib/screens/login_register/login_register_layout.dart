@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutterfirebase/blocs/account_bloc.dart';
+import 'package:flutterfirebase/blocs/db_bloc.dart';
 import 'package:flutterfirebase/screens/login_register/login/login_content.dart';
 import 'package:flutterfirebase/screens/login_register/register/register_content.dart';
 import 'package:flutterfirebase/screens/main/main_content.dart';
@@ -26,6 +27,7 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> with SingleTic
   StreamSubscription _toastMessage;
   StreamSubscription _currentUser;
   TabController _tabController;
+  DbBloc _dbBloc;
 
   @override
   void initState() {
@@ -134,10 +136,11 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> with SingleTic
   }
 
   void changeViewIfLoggedIn(FirebaseUser user){
-    if (user.uid!=null){
+    if (user.uid != null){
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => MainScreen(),
       ));
+      _dbBloc.userUid = user.uid;
     }
   }
 

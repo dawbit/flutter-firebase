@@ -12,7 +12,7 @@ class Game{
   bool played;
   String id;
 
-  Game({this.title, this.year, this.genre, this.studio, this.played});
+  Game({this.title, this.year, this.genre, this.studio, this.played,  this.id});
 
   void setUuid(String uuid){
     this.id = uuid;
