@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
               accentColor: Colors.pink[500],
               brightness: Brightness.dark
           ),
-          home: TestScr()
+          home: LoginRegisterScreen()
       ),
     );
   }

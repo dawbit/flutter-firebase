@@ -16,6 +16,7 @@ class _BooksContentState extends State<BooksContent> {
   @override
   void initState() {
     _databaseBloc = BlocProvider.getBloc();
+    _databaseBloc.deletedBookIdObservable.listen(onBookDeleted);
     _databaseBloc.onBookAdded.listen(onBookAdded);
     super.initState();
   }
@@ -37,5 +38,10 @@ class _BooksContentState extends State<BooksContent> {
       listOfBooks.add(library);
     });
   }
-}
 
+  void onBookDeleted(Library library){
+    setState(() {
+      listOfBooks.removeWhere((item) => item.getItemId() == library.getItemId());
+    });
+  }
+}

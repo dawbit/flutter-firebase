@@ -4,6 +4,7 @@ import 'package:flutterfirebase/screens/books/books_screen.dart';
 import 'package:flutterfirebase/screens/games/games_screen.dart';
 import 'package:flutterfirebase/screens/movies/movies_screen.dart';
 import 'package:flutterfirebase/widgets/add_to_db.dart';
+import 'package:flutterfirebase/blocs/db_bloc.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -97,7 +98,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         FloatingActionButton(
           shape: StadiumBorder(),
           onPressed: (){Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => AddToDb(appBarTitle: "Dodaj Grę", appBarColor: Colors.orangeAccent, authorOrProducer: "Producent",), ));},
+            builder: (context) => AddToDb(RecordType.GAMEADD), ));},
           backgroundColor: Colors.orangeAccent,
           child: Icon(Icons.add, size: 20,),
         );
@@ -107,12 +108,12 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         FloatingActionButton(
           shape: StadiumBorder(),
           onPressed: (){Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => AddToDb(appBarTitle: "Dodaj Książkę" , appBarColor: Colors.greenAccent, authorOrProducer: "Autor",), ));},
+            builder: (context) => AddToDb(RecordType.BOOKADD,), ));
+          },
           backgroundColor: Colors.greenAccent,
           child: Icon(Icons.add, size: 20,),
         );
     }
-
 
   }
 }

@@ -47,7 +47,7 @@ class _SearchForMovieScreenState extends State<SearchForMovieScreen> {
                   child: ListView.builder(
                     itemCount: 7,
                     itemBuilder: (_, position) =>
-                        MovieItem.Search(is_Search: true,),
+                        MovieItem.Search(isSearch: true,),
                   ),
                 )
               ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfirebase/widgets/add_to_db.dart';
 import 'package:flutterfirebase/models/library.dart';
+import 'package:flutterfirebase/blocs/db_bloc.dart';
 
 class BookItem extends StatefulWidget {
   Library book;
@@ -43,7 +44,7 @@ class _BookItemState extends State<BookItem> {
           subtitle: Text("Autor: ${book.book.author} \nRok wydania: ${book.book.year}"),
           trailing: InkWell(
             onTap: (){Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => AddToDb(appBarTitle: "Edytuj Książke", appBarColor: Colors.greenAccent, authorOrProducer: "Producent",), ));},
+              builder: (context) => AddToDb(RecordType.BOOKEDIT, library: book,), ));},
               child: Icon(Icons.edit)),
           isThreeLine: true,
         ),
