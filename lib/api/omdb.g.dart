@@ -40,7 +40,7 @@ class _Omdb implements Omdb {
   getCurrentMovie(text, {apiKey = "c358b74"}) async {
     ArgumentError.checkNotNull(text, 'text');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r't': text, r'apikey': apiKey};
+    final queryParameters = <String, dynamic>{r'i': text, r'apikey': apiKey};
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
@@ -52,7 +52,7 @@ class _Omdb implements Omdb {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = Movie.fromJson(_result.data);
+    final value = MovieDetails.fromJson(_result.data);
     return Future.value(value);
   }
 }

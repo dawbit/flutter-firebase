@@ -7,13 +7,14 @@ import 'package:flutterfirebase/blocs/db_bloc.dart';
 import 'package:flutterfirebase/models/library.dart';
 import 'package:flutterfirebase/models/movie.dart';
 import 'package:flutterfirebase/models/movie_api.dart';
+import 'package:flutterfirebase/blocs/omdb_bloc.dart';
 
 
 class MovieItem extends StatefulWidget {
   bool isSearch = false;
   Library movie;
   MovieItem.Search({this.isSearch, this.movieApi}){
-    movie = Library(movie: Movie(year: movieApi.year,title: movieApi.title,id: movieApi.id));
+      movie = Library(movie: Movie(year: movieApi.year,title: movieApi.title, read: false, id: movieApi.id));
   }
   MovieItem(this.movie);
   MovieApi movieApi;
@@ -25,11 +26,13 @@ class MovieItem extends StatefulWidget {
 class _MovieItemState extends State<MovieItem> {
   Library movie;
   DbBloc _dbBloc;
+  OmdbBloc _omdbBloc;
 
   @override
   void initState() {
     _dbBloc = BlocProvider.getBloc();
     movie = widget.movie;
+    _omdbBloc = BlocProvider.getBloc();
     super.initState();
   }
 
@@ -57,12 +60,13 @@ class _MovieItemState extends State<MovieItem> {
           subtitle: Text("Autor: ${movie.movie.author} \nRok wydania: ${movie.movie.year}"),
           trailing: InkWell(
               onTap: widget.isSearch ?
-                  (){
-                    _dbBloc.addItemToFireBaseDatabase(movie);
-                  } : (){
-                DeleteMovie();
-              },
-              child: widget.isSearch ? Icon(Icons.add) : Icon(Icons.delete)
+                  (){ Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => AddToDb(RecordType.MOVIEEDIT, library: movie,), ));
+                      //_dbBloc.addItemToFireBaseDatabase(movie);
+                  } : (){Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => AddToDb(RecordType.MOVIEEDIT, library: movie,), ));
+                      },
+              child: widget.isSearch ? Icon(Icons.add) : Icon(Icons.edit)
           ),
           isThreeLine: true,
         ),

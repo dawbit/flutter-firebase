@@ -33,7 +33,7 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> with SingleTic
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 2, initialIndex: 0);
-    _accountBloc= BlocProvider.getBloc();
+    _accountBloc = BlocProvider.getBloc();
     _registerSubscription = _accountBloc.loadingLoginRegister.listen(loadingScreen);
     _toastMessage = _accountBloc.messageObservable.listen(showtoast);
     _currentUser = _accountBloc.currentUser.listen(changeViewIfLoggedIn);

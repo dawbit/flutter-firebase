@@ -8,7 +8,7 @@ class FirebaseAuthManager{
       _auth.createUserWithEmailAndPassword(email: email, password: password).then((result) => result.user);
 
   Future<FirebaseUser> getUser() async {
-    return (await _auth.currentUser());
+    return _auth.currentUser();
   }
 
   Future<FirebaseUser> loginUser(String email, String password) =>

@@ -42,9 +42,9 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         body: TabBarView(
           controller: _tabController,
           children: <Widget>[
-            MoviesScreen(),
             GamesScreen(),
             BooksScreen(),
+            MoviesScreen(),
           ],
         ),
         bottomNavigationBar: TabBar(
@@ -52,16 +52,16 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
           controller: _tabController,
           tabs: <Widget>[
             Tab(
-              icon: Icon(Icons.movie),
-              text: "Filmy",
-            ),
-            Tab(
               icon: Icon(Icons.videogame_asset),
               text: "Gry",
             ),
             Tab(
               icon: Icon(Icons.book),
               text: "Książki",
+            ),
+            Tab(
+              icon: Icon(Icons.movie),
+              text: "Filmy",
             )
           ],
         ),
@@ -71,14 +71,14 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   }
 
   Color _indicatorColor(){
-    if(_tabController.index==0){
-      return Colors.blueAccent;
-    }
-    else if (_tabController.index==1 ){
+    if (_tabController.index==0 ){
       return Colors.orangeAccent;
     }
-    else if( _tabController.index==2){
+    else if( _tabController.index==1){
       return Colors.greenAccent;
+    }
+    else if(_tabController.index==2){
+    return Colors.blueAccent;
     }
   }
 
@@ -88,22 +88,12 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         FloatingActionButton(
           shape: StadiumBorder(),
           onPressed: (){Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => SearchForMovieScreen(), ));},
-          backgroundColor: Colors.blueAccent,
-          child: Icon(Icons.add, size: 20,),
-        );
-    }
-    else if(_tabController.index==1){
-      return
-        FloatingActionButton(
-          shape: StadiumBorder(),
-          onPressed: (){Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => AddToDb(RecordType.GAMEADD), ));},
           backgroundColor: Colors.orangeAccent,
           child: Icon(Icons.add, size: 20,),
         );
     }
-    else if(_tabController.index==2){
+    else if(_tabController.index==1){
       return
         FloatingActionButton(
           shape: StadiumBorder(),
@@ -114,6 +104,16 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
           child: Icon(Icons.add, size: 20,),
         );
     }
-
+      if(_tabController.index==2){
+        return
+          FloatingActionButton(
+            shape: StadiumBorder(),
+            onPressed: (){Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => SearchForMovieScreen(), ));
+            },
+            backgroundColor: Colors.blueAccent,
+            child: Icon(Icons.add, size: 20,),
+        );
+      }
   }
 }

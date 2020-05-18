@@ -27,7 +27,6 @@ class FBDataBaseManager{
     testtt.forEach((key, values){
       Map<String,dynamic> asdd = (values as Map).map((key, value) => MapEntry(key as String, value));
       tester = Book.fromJson(asdd);
-      print(tester.year);
     });
 
   }

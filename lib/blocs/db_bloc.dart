@@ -64,5 +64,5 @@ class DbBloc extends BlocBase {
 }
 
 enum RecordType{
-  BOOKADD, BOOKEDIT ,GAMEADD, GAMEEDIT
+  BOOKADD, BOOKEDIT ,GAMEADD, GAMEEDIT, MOVIEEDIT
 }

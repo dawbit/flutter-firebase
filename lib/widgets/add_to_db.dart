@@ -7,6 +7,7 @@ import 'package:flutterfirebase/blocs/db_bloc.dart';
 import 'package:flutterfirebase/models/library.dart';
 import 'package:flutterfirebase/models/book.dart';
 import 'package:flutterfirebase/models/game.dart';
+import 'package:flutterfirebase/models/movie.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:uuid/uuid.dart';
 
@@ -39,7 +40,12 @@ class AddToDb extends StatefulWidget {
     }
     else if(type == RecordType.GAMEEDIT){
       appBarColor= Colors.orangeAccent;
-      appBarTitle= "Edytuj Grę";
+      appBarTitle= "Edytuj Film";
+      authorOrProducer="Producent";
+    }
+    else if(type == RecordType.MOVIEEDIT){
+      appBarColor= Colors.blueAccent;
+      appBarTitle= "Edytuj Film";
       authorOrProducer="Producent";
     }
   }
@@ -99,14 +105,26 @@ class _AddToDbState extends State<AddToDb> {
         editCreatorText.text = widget.library.book.author;
         editDateText.text = widget.library.book.year;
         played = widget.library.book.read;
-        doneType="Przeczytane";
+        doneType="Przeczytana";
       }
       else if(widget.library.game!=null){
         editTitleText.text = widget.library.game.title;
         editCreatorText.text = widget.library.game.studio;
         editDateText.text = widget.library.game.year;
         played = widget.library.game.played;
-        doneType="Przeszednięte";
+        doneType="Zagrana";
+      }
+      else if(widget.library.movie!=null){
+        editTitleText.text = widget.library.movie.title;
+        editCreatorText.text = widget.library.movie.author;
+        editDateText.text = widget.library.movie.year;
+        if(widget.library.movie.read == null){
+          played = false;
+        }
+        else {
+        played = widget.library.movie.read;
+        }
+        doneType="Obejrzany";
       }
     }
     super.initState();
@@ -337,12 +355,23 @@ class _AddToDbState extends State<AddToDb> {
       }
       else if (widget.type == RecordType.BOOKEDIT){
         Library library;
+
         Book book = widget.library.book;
         book.read = played;
         book.author = editCreatorText.text;
         book.title = editTitleText.text;
         book.year = editDateText.text;
         library = Library(book: book);
+        _dbBloc.addItemToFireBaseDatabase(library);
+      }
+      else if (widget.type == RecordType.MOVIEEDIT){
+        Library library;
+        Movie movie = widget.library.movie;
+        movie.read = played;
+        movie.author = editCreatorText.text;
+        movie.title = editTitleText.text;
+        movie.year = editDateText.text;
+        library = Library(movie: movie);
         _dbBloc.addItemToFireBaseDatabase(library);
       }
       else if (widget.type == RecordType.GAMEEDIT){
@@ -370,7 +399,7 @@ class _AddToDbState extends State<AddToDb> {
   }
 
   Container actionIcon(){
-    if(widget.type == RecordType.BOOKEDIT || widget.type == RecordType.GAMEEDIT){
+    if(widget.type == RecordType.BOOKEDIT || widget.type == RecordType.GAMEEDIT || widget.type == RecordType.MOVIEEDIT){
       return Container(
         child: InkWell(
           onTap: (){deletePosition();},

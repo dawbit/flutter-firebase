@@ -12,7 +12,6 @@ class OmdbBloc extends BlocBase{
   PublishSubject<MovieDetails> _searchTitle = PublishSubject();
   Stream<MovieDetails> get movieStream => _searchTitle.stream;
 
-
   OmdbBloc(this._omdbRepository){
     searchStream = _searchSubject
         .debounceTime(Duration(seconds: 1))
@@ -24,9 +23,9 @@ class OmdbBloc extends BlocBase{
 
   Function(String title) get fetchResults => _searchSubject.add;
 
-  void getTitle(String id){
-    _omdbRepository.getTitle(id).then(_searchTitle.add).catchError(_searchTitle.addError);
-  }
+//  void getTitle(String id){
+//    _omdbRepository.getTitle(id).then(_searchTitle.add).catchError(_searchTitle.addError);
+//  }
 
   @override
   void dispose() {

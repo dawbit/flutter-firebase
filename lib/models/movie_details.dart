@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'MovieDetails.g.dart';
+part 'movie_details.g.dart';
 
 @JsonSerializable()
 class MovieDetails{
@@ -29,7 +29,7 @@ class MovieDetails{
 
   MovieDetails({this.title, this.type, this.poster, this.director, this.genre, this.imdbRate, this.imdbVotes, this.plot, this.runtime});
 
-  factory MovieT.fromJson(Map<String, dynamic> json) => _$MovieDetailsFromJson(json);
+  factory MovieDetails.fromJson(Map<String, dynamic> json) => _$MovieDetailsFromJson(json);
 
   Map<String, dynamic> get json => _$MovieDetailsToJson(this);
 

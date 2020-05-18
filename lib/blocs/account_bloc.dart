@@ -19,9 +19,9 @@ class AccountBloc extends BlocBase{
 
   @override
   void dispose(){
-    _currentUserSubject.close();
     _messageSubject.close();
     _loadingLoginRegisterSubject.close();
+    _currentUserSubject.close();
     super.dispose();
   }
 
