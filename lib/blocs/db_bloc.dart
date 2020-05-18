@@ -8,8 +8,9 @@ import 'package:flutterfirebase/firebase/FirebaseDatabaseManager.dart';
 import 'package:flutterfirebase/models/library.dart';
 
 class DbBloc extends BlocBase {
-  String userUid = "user";
+  String userUid;
   final dataBaseManager = FBDataBaseManager();
+  final auth = FirebaseAuthManager();
 
   BehaviorSubject<bool> _changesInDbItem = BehaviorSubject();
   Stream<bool> get changesInDbObservable => _changesInDbItem.stream;
@@ -23,22 +24,29 @@ class DbBloc extends BlocBase {
   BehaviorSubject<Library> _deletedBook = BehaviorSubject();
   Stream<Library> get deletedBookIdObservable => _deletedBook.stream;
 
-  Stream<Library> get onMovieChanged => dataBaseManager.catchMovieUpdate();
-  Stream<Library> get onMovieAdded => dataBaseManager.onMovieAdded();
+  Stream<Library> get onMovieChanged => dataBaseManager.catchMovieUpdate(getUserUid());
+  Stream<Library> get onMovieAdded => dataBaseManager.onMovieAdded(getUserUid());
 
-  Stream<Library> get onGameChanged => dataBaseManager.catchMovieUpdate();
-  Stream<Library> get onGameCAdded => dataBaseManager.onGameAdded();
+  Stream<Library> get onGameChanged => dataBaseManager.catchMovieUpdate(getUserUid());
+  Stream<Library> get onGameCAdded => dataBaseManager.onGameAdded(getUserUid());
 
-  Stream<Library> get onBookChanged => dataBaseManager.catchMovieUpdate();
-  Stream<Library> get onBookAdded => dataBaseManager.onBookAdded();
+  Stream<Library> get onBookChanged => dataBaseManager.catchMovieUpdate(getUserUid());
+  Stream<Library> get onBookAdded => dataBaseManager.onBookAdded(getUserUid());
+
+  String getUserUid(){
+    auth.getUser().then((onValue) {userUid = onValue.uid;});
+    return userUid;
+  }
 
   Future addItemToFireBaseDatabase(Library library) async {
+    auth.getUser().then((onValue) {userUid = onValue.uid;});
     dataBaseManager.saveDataToDatabase(userUid, library);
     _changesInDbItem.add(true);
     _changesInDbItem.add(false);
   }
 
   Future removeItemFromFireBaseDatabase(Library library) async {
+    auth.getUser().then((onValue) {userUid = onValue.uid;});
     if(library.game!=null){
       _deletedGame.add(library);
     }

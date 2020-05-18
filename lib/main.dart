@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:dio/dio.dart';
+
 import 'package:flutterfirebase/blocs/account_bloc.dart';
 import 'package:flutterfirebase/screens/api_search/api_search.dart';
 import 'package:flutterfirebase/screens/login_register/login_register_layout.dart';
 import 'package:flutterfirebase/screens/main/main_content.dart';
 import 'package:flutterfirebase/screens/test.dart';
 import 'package:flutterfirebase/blocs/db_bloc.dart';
-import 'firebase/FirebaseAuthManager.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:flutterfirebase/firebase/FirebaseAuthManager.dart';
+import 'package:flutterfirebase/blocs/omdb_bloc.dart';
+import 'package:flutterfirebase/repositories/omdb_repository.dart';
+import 'package:flutterfirebase/api/omdb.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,10 +36,14 @@ class MyApp extends StatelessWidget {
 
   List<Bloc> get _blocs => [
     Bloc((_) => AccountBloc()),
-    Bloc((_) => DbBloc())
+    Bloc((_) => DbBloc()),
+    Bloc((i) => OmdbBloc(i.get())),
   ];
 
   List<Dependency> get _dependencies =>[
-    Dependency((_) => FirebaseAuthManager())
+    Dependency((_) => FirebaseAuthManager()),
+    Dependency((_) => Dio()),
+    Dependency((i) => Omdb(i.get())),
+    Dependency((i) => OmdbRepository(i.get())),
   ];
 }

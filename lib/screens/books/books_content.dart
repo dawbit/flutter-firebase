@@ -11,13 +11,13 @@ class BooksContent extends StatefulWidget {
 
 class _BooksContentState extends State<BooksContent> {
   List<Library> listOfBooks = [];
-  DbBloc _databaseBloc;
+  DbBloc _dbBloc;
 
   @override
   void initState() {
-    _databaseBloc = BlocProvider.getBloc();
-    _databaseBloc.deletedBookIdObservable.listen(onBookDeleted);
-    _databaseBloc.onBookAdded.listen(onBookAdded);
+    _dbBloc = BlocProvider.getBloc();
+    _dbBloc.deletedBookIdObservable.listen(onBookDeleted);
+    _dbBloc.onBookAdded.listen(onBookAdded);
     super.initState();
   }
 
@@ -27,7 +27,16 @@ class _BooksContentState extends State<BooksContent> {
         child: SafeArea(
             child: ListView.builder(
               itemCount: listOfBooks.length,
-              itemBuilder: (_, position) { return new BookItem(listOfBooks[position]);},
+              itemBuilder: (_, position) { return Dismissible(
+                  direction: DismissDirection.startToEnd,
+                  key: ObjectKey(listOfBooks[position]),
+                  onDismissed: (direction){
+                    _dbBloc.removeItemFromFireBaseDatabase(listOfBooks[position]);
+                    setState(() {
+                      listOfBooks.removeAt(position);
+                    });
+                  },
+                  child: BookItem(listOfBooks[position]));},
             )
         )
     );
@@ -41,7 +50,7 @@ class _BooksContentState extends State<BooksContent> {
 
   void onBookDeleted(Library library){
     setState(() {
-      listOfBooks.removeWhere((item) => item.getItemId() == library.getItemId());
+      listOfBooks.remove(library);
     });
   }
 }

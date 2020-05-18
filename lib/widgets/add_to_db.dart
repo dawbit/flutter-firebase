@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutterfirebase/blocs/db_bloc.dart';
 import 'package:flutterfirebase/models/library.dart';
 import 'package:flutterfirebase/models/book.dart';
 import 'package:flutterfirebase/models/game.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:uuid/uuid.dart';
+
 
 class AddToDb extends StatefulWidget {
 
@@ -66,8 +68,14 @@ class _AddToDbState extends State<AddToDb> {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: _date,
-      firstDate: DateTime(1970),
-      lastDate: DateTime(2100),
+      builder: (context,Widget child) => Theme(
+        data: Theme.of(context).copyWith(
+            accentColor: widget.appBarColor
+        ),
+        child: child,
+      ),
+      firstDate: DateTime(1800),
+      lastDate: DateTime(2200),
     );
 
     if(picked!=null && picked!=_date){
@@ -88,15 +96,15 @@ class _AddToDbState extends State<AddToDb> {
       });
       if(widget.library.book!=null){
         editTitleText.text = widget.library.book.title;
-        editCreatorText.text= widget.library.book.author;
-        editDateText.text= widget.library.book.year;
+        editCreatorText.text = widget.library.book.author;
+        editDateText.text = widget.library.book.year;
         played = widget.library.book.read;
         doneType="Przeczytane";
       }
       else if(widget.library.game!=null){
         editTitleText.text = widget.library.game.title;
-        editCreatorText.text= widget.library.game.studio;
-        editDateText.text= widget.library.game.year;
+        editCreatorText.text = widget.library.game.studio;
+        editDateText.text = widget.library.game.year;
         played = widget.library.game.played;
         doneType="Przeszednięte";
       }
@@ -104,6 +112,11 @@ class _AddToDbState extends State<AddToDb> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _loading.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -308,7 +321,11 @@ class _AddToDbState extends State<AddToDb> {
 
   void addOrEditRecord() {
     if(editCreatorText.text.isEmpty || editCreatorText.text.isEmpty || editDateText.text.isEmpty ){
-
+      Fluttertoast.showToast(
+        msg: "Nie wszystkie pola zostały uzupełnione",
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_LONG,
+      );
     }
     else{
       if(widget.type == RecordType.BOOKADD){

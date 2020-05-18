@@ -5,12 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutterfirebase/widgets/add_to_db.dart';
 import 'package:flutterfirebase/blocs/db_bloc.dart';
 import 'package:flutterfirebase/models/library.dart';
+import 'package:flutterfirebase/models/movie.dart';
+import 'package:flutterfirebase/models/movie_api.dart';
+
 
 class MovieItem extends StatefulWidget {
   bool isSearch = false;
   Library movie;
-  MovieItem.Search({this.isSearch});
+  MovieItem.Search({this.isSearch, this.movieApi}){
+    movie = Library(movie: Movie(year: movieApi.year,title: movieApi.title,id: movieApi.id));
+  }
   MovieItem(this.movie);
+  MovieApi movieApi;
 
   @override
   _MovieItemState createState() => _MovieItemState();
@@ -51,7 +57,9 @@ class _MovieItemState extends State<MovieItem> {
           subtitle: Text("Autor: ${movie.movie.author} \nRok wydania: ${movie.movie.year}"),
           trailing: InkWell(
               onTap: widget.isSearch ?
-                  (){} : (){
+                  (){
+                    _dbBloc.addItemToFireBaseDatabase(movie);
+                  } : (){
                 DeleteMovie();
               },
               child: widget.isSearch ? Icon(Icons.add) : Icon(Icons.delete)
@@ -63,7 +71,7 @@ class _MovieItemState extends State<MovieItem> {
   }
 
   void DeleteMovie(){
-    _dbBloc.removeItemFromFireBaseDatabase(widget.movie);
+    _dbBloc.removeItemFromFireBaseDatabase(movie);
   }
 
 }

@@ -28,7 +28,16 @@ class _GamesContentState extends State<GamesContent> {
         child: SafeArea(
             child: ListView.builder(
               itemCount: listOfGames.length,
-              itemBuilder: (_, position) { return new GameItem(listOfGames[position]);},
+              itemBuilder: (_, position) { return Dismissible(
+                  direction: DismissDirection.startToEnd,
+                  key: ObjectKey(listOfGames[position]),
+                  onDismissed: (direction){
+                    _dbBloc.removeItemFromFireBaseDatabase(listOfGames[position]);
+                    setState(() {
+                      listOfGames.removeAt(position);
+                    });
+                  },
+                  child: GameItem(listOfGames[position]));},
             )
         )
     );
@@ -42,7 +51,7 @@ class _GamesContentState extends State<GamesContent> {
 
   void onDeleteItem(Library library){
     setState(() {
-      listOfGames.removeWhere((item) => item.getItemId() == library.getItemId());
+      listOfGames.remove(library);
     });
   }
 

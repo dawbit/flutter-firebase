@@ -1,9 +1,13 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfirebase/screens/movies/content/movie_item.dart';
 import 'package:flutterfirebase/blocs/db_bloc.dart';
 import 'package:flutterfirebase/models/library.dart';
+import 'package:flutterfirebase/api/omdb.dart';
+import 'package:flutterfirebase/blocs/omdb_bloc.dart';
+import 'package:flutterfirebase/repositories/omdb_repository.dart';
+
 
 class MoviesContent extends StatefulWidget {
   @override
@@ -13,6 +17,7 @@ class MoviesContent extends StatefulWidget {
 class _MoviesContentState extends State<MoviesContent> {
   List<Library> listOfMovies = [];
   DbBloc _dbBloc;
+  Key _key;
 
   @override
   void initState() {
@@ -28,7 +33,17 @@ class _MoviesContentState extends State<MoviesContent> {
         child: SafeArea(
             child: ListView.builder(
               itemCount: listOfMovies.length,
-              itemBuilder: (_, position) { return new MovieItem(listOfMovies[position]);},
+              itemBuilder: (_, position) {
+                return Dismissible(
+                    direction: DismissDirection.startToEnd,
+                    key: ObjectKey(listOfMovies[position]),
+                    onDismissed: (direction){
+                      _dbBloc.removeItemFromFireBaseDatabase(listOfMovies[position]);
+                      setState(() {
+                        listOfMovies.removeAt(position);
+                      });
+                    },
+                    child: MovieItem(listOfMovies[position]));},
             )
         )
     );
@@ -42,8 +57,10 @@ class _MoviesContentState extends State<MoviesContent> {
 
   void onDeletedMovie(Library library){
     setState(() {
-      listOfMovies.removeWhere((item) => item.getItemId() == library.getItemId());
+      listOfMovies.remove(library);
     });
   }
+
+  void _scrollListener(){}
 
 }
