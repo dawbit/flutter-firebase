@@ -68,15 +68,6 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> with SingleTic
                 ),
               ),
               Expanded(
-                flex: 0,
-                child: Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                    child: Image(
-                      image: AssetImage('images/cooltext.png'),
-                    )
-                ),
-              ),
-              Expanded(
                 flex: 1,
                 child: Padding(
                   padding: EdgeInsets.only(left: 30, right: 30),

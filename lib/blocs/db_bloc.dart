@@ -8,7 +8,7 @@ import 'package:flutterfirebase/firebase/FirebaseDatabaseManager.dart';
 import 'package:flutterfirebase/models/library.dart';
 
 class DbBloc extends BlocBase {
-  String userUid;
+  String userUid = '';
   final dataBaseManager = FBDataBaseManager();
   final auth = FirebaseAuthManager();
 

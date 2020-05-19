@@ -26,21 +26,13 @@ class _GameItemState extends State<GameItem> {
       padding: EdgeInsets.all(16),
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xff2e2e2e),
+          color: Colors.orangeAccent,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(width: 1, color: Colors.orangeAccent),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.orangeAccent[100],
-              spreadRadius: 0,
-              blurRadius: 4,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
+          border: Border.all(width: 1, color: Colors.orangeAccent)
         ),
         child: ListTile(
           leading: Icon(Icons.videogame_asset , size: 50,),
-          title: Text("Tytuł: ${game.game.title}", style: TextStyle(fontSize: 20,),),
+          title: Text("${game.game.title}", style: TextStyle(fontSize: 24,),),
           subtitle: Text("Producent: ${game.game.studio} \nRok wydania: ${game.game.year}"),
           trailing: InkWell(
             onTap: (){Navigator.of(context).push(MaterialPageRoute(

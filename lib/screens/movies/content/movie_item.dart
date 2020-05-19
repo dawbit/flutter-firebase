@@ -42,17 +42,9 @@ class _MovieItemState extends State<MovieItem> {
       padding: EdgeInsets.all(16),
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xff2e2e2e),
+          color: Colors.blueAccent,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(width: 1, color: Colors.blueAccent),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.blueAccent[100],
-              spreadRadius: 0,
-              blurRadius: 4,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
         ),
         child: ListTile(
           leading: Icon(Icons.movie , size: 50,),

@@ -46,6 +46,7 @@ class _LoginContentState extends State<LoginContent> {
 
             SizedBox(height: 20,),
             TextFormField(
+              obscureText: true,
               style: TextStyle(fontSize: 17 ),
               onChanged: (text) {password=text;},
               decoration: InputDecoration(
@@ -59,10 +60,10 @@ class _LoginContentState extends State<LoginContent> {
               child: Container(
                 height: 50,
                 child: Center(child:
-                Text("Zarejestruj", style: TextStyle(color: Colors.white),)),
+                Text("Zaloguj", style: TextStyle(color: Colors.white),)),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Color(0xfffa526c),
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.indigoAccent[200],
                 ),
               ),
             ),
@@ -76,4 +77,3 @@ class _LoginContentState extends State<LoginContent> {
     _accountBloc.loginUser(email.trim(), password.trim());
   }
 }
-

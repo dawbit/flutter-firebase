@@ -3,10 +3,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 
 import 'package:flutterfirebase/blocs/account_bloc.dart';
-import 'package:flutterfirebase/screens/api_search/api_search.dart';
 import 'package:flutterfirebase/screens/login_register/login_register_layout.dart';
-import 'package:flutterfirebase/screens/main/main_content.dart';
-import 'package:flutterfirebase/screens/test.dart';
 import 'package:flutterfirebase/blocs/db_bloc.dart';
 import 'package:flutterfirebase/firebase/FirebaseAuthManager.dart';
 import 'package:flutterfirebase/blocs/omdb_bloc.dart';
@@ -25,8 +22,8 @@ class MyApp extends StatelessWidget {
           title: 'GBM',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              primaryColor: Colors.pink[900],
-              accentColor: Colors.pink[500],
+              primaryColor: Colors.indigo[500],
+              accentColor: Colors.indigo[400],
               brightness: Brightness.dark
           ),
           home: LoginRegisterScreen()

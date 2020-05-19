@@ -26,17 +26,9 @@ class _BookItemState extends State<BookItem> {
       padding: EdgeInsets.all(16),
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xff2e2e2e),
+          color: Colors.greenAccent,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(width: 1, color: Colors.greenAccent),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.greenAccent[100],
-              spreadRadius: 0,
-              blurRadius: 4,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
         ),
         child: ListTile(
           leading: Icon(Icons.book , size: 50,),

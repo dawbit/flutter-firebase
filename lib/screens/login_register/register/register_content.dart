@@ -74,6 +74,7 @@ class _RegisterContentState extends State<RegisterContent> {
                 _passwordFormKey.currentState.validate();
                 password = text;
               },
+              obscureText: true,
               style: TextStyle(fontSize: 17 ),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.zero,
@@ -91,6 +92,7 @@ class _RegisterContentState extends State<RegisterContent> {
               onChanged: (text)  {
                 confirmPassword = text;
                 _confirmPasswordFormKey.currentState.validate();},
+              obscureText: true,
               style: TextStyle(fontSize: 17 ),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.zero,
@@ -106,8 +108,8 @@ class _RegisterContentState extends State<RegisterContent> {
               child: Center(child:
               Text("Zarejestruj", style: TextStyle(color: Colors.white),)),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Color(0xfffa526c),
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.indigoAccent[200],
               ),
             ),
           ),
